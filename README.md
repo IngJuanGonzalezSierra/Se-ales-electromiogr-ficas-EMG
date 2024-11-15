@@ -11,14 +11,14 @@ superficie.
 
 [![Sin-t-tulo.png](https://i.postimg.cc/Dzm1F3ZD/Sin-t-tulo.png)](https://postimg.cc/rdXDCb5C) 
 
-#Objetivo de la práctica
+# Objetivo de la práctica
 Analizar la señal electromiográfica (EMG) durante una contracción muscular continua hasta la fatiga, utilizando técnicas de adquisición de datos y procesamiento de señales digitales.
 
-#Descripción de la configuración experimental
+# Descripción de la configuración experimental
 Electrodos de superficie
 Se colocaron electrodos de superficie sobre el músculo objetivo para captar la actividad eléctrica generada durante la contracción muscular. Estos electrodos son esenciales para registrar señales EMG debido a su capacidad para detectar potenciales eléctricos generados por la actividad muscular.
 
-#Sistema de adquisición de datos (DAQ NI USB 6001/6002/6003)
+# Sistema de adquisición de datos (DAQ NI USB 6001/6002/6003)
 El sistema DAQ (Data Acquisition) NI USB 6001/6002/6003 es un dispositivo portátil de National Instruments diseñado para capturar señales analógicas y digitales. Tiene las siguientes características principales:
 
 Función: Convierte señales analógicas (como la EMG) en digitales para su análisis posterior en una computadora.
@@ -30,7 +30,9 @@ Este laboratorio tiene como objetivo analizar la señal electromiográfica (EMG)
 ## Procedimientos:
 •	Pedir al sujeto que realice una contracción muscular continua hasta llegar a la fatiga.
 •	Registrar la señal EMG en tiempo real durante todo el proceso.
-#Adquisición de la señal
+
+# Adquisición de la señal
+
 El paciente realizó una contracción muscular continua hasta llegar a la fatiga, registrando la señal EMG durante todo el proceso. El análisis se dividió en tres fases:
 
 Inicio de la señal:
@@ -42,7 +44,7 @@ Fatiga muscular:
 Disminuyen las frecuencias altas debido al agotamiento de las fibras musculares rápidas.
 Aumentan las componentes de baja frecuencia porque las fibras lentas dominan la contracción.
 
-#Procesamiento de la señal
+# Procesamiento de la señal
 Filtrado de la señal
 Se emplearon dos filtros para mejorar la calidad de la señal:
 
@@ -60,26 +62,26 @@ Justificación: Las señales EMG típicas tienen una banda de frecuencia útil e
 #Segmentación de la señal
 La señal procesada se dividió en 48 ventanas de tiempo utilizando una ventana de Hanning.
 
-Ventana Hanning:
+## Ventana Hanning:
 Suaviza la señal en los bordes, reduciendo las distorsiones espectrales causadas por discontinuidades en los límites.
 Ventaja sobre Hamming: La Hanning tiene un decrecimiento más pronunciado hacia los extremos, lo que reduce aún más las componentes espurias en el análisis espectral.
 Duración de cada ventana: Dependió de la longitud total de la señal y la frecuencia de muestreo, garantizando una resolución adecuada.
 
-#Análisis espectral
+# Análisis espectral
 Técnica: Se utilizó la Transformada Rápida de Fourier (FFT) para convertir la señal de dominio temporal a dominio frecuencial.
 Resultados esperados:
 Durante el esfuerzo, la señal muestra un espectro centrado en frecuencias medias-altas (80-150 Hz).
 En la fatiga, el espectro se desplaza hacia frecuencias bajas (<80 Hz), debido a la disminución en la capacidad contráctil de las fibras rápidas.
 
-#Resultados esperados
+# Resultados esperados
 Inicio: Señal de baja amplitud y espectro centrado en frecuencias bajas.
 Esfuerzo: Incremento en la amplitud y ensanchamiento del espectro.
 Fatiga: Disminución de la amplitud total, desplazamiento del espectro hacia frecuencias bajas.
 Este análisis permite identificar patrones de activación muscular, niveles de esfuerzo y fatiga, proporcionando información valiosa para aplicaciones médicas y deportivas.
 #### Código:
-  import numpy as np
-  import matplotlib.pyplot as plt
-  from scipy.signal import butter, filtfilt
+	  import numpy as np
+	  import matplotlib.pyplot as plt
+	  from scipy.signal import butter, filtfilt
 
 # Función para leer una señal biológica desde un archivo txt
 	def leer_senal_desde_txt(nombre_archivo):
@@ -153,6 +155,15 @@ num_ventanas = len(senal) // muestras_por_ventana
 	   Y = np.fft.fft(senal) / n  # FFT normalizada
 	   Y = Y[range(n // 2)]
 	   return frq, abs(Y)
+    [![Figure-2024-11-15-134033.png](https://i.postimg.cc/VLqp8dJX/Figure-2024-11-15-134033.png)](https://postimg.cc/zVf0wDSf)}
+    
+[![Figure-2024-11-15-133959.png](https://i.postimg.cc/vZjBwqg1/Figure-2024-11-15-133959.png)](https://postimg.cc/xXvYKPPY)
+
+[![Figure-2024-11-15-134152.png](https://i.postimg.cc/vTtDVk7P/Figure-2024-11-15-134152.png)](https://postimg.cc/K34ZX9HL)
+
+[![Figure-2024-11-15-134203.png](https://i.postimg.cc/L6g8Rdfz/Figure-2024-11-15-134203.png)](https://postimg.cc/dLvYmx51)
+
+[![Figure-2024-11-15-134213.png](https://i.postimg.cc/B6JjQhsJ/Figure-2024-11-15-134213.png)](https://postimg.cc/PLFXSQP7)
 
 5. Análisis Espectral
 
